@@ -1,5 +1,6 @@
 package com.example.myapplication.models
 
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -7,6 +8,7 @@ import android.widget.TextView
 import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myapplication.R
 import kotlinx.android.synthetic.main.layout_bog_list_item.view.*
 
 class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -14,12 +16,23 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+
+        return BlogViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.layout_bog_list_item,parent,false)
+        )
     }
 
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
+        when(holder){
+            is BlogViewHolder ->{
+                holder.bind(items.get(position))
+            }
+        }
     }
     override fun getItemCount(): Int {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
@@ -27,6 +40,9 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         return  items.size
     }
 
+    fun submitList(blogList:List<BlogPost>){
+        items = blogList
+    }
 
 
 
@@ -48,6 +64,7 @@ class BlogRecyclerAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
 
             Glide.with(itemView.context)
                 .load(blogPost.image)
+                .into(blog_image)
 
 
 
